@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "412430182392",
+    "project_id": "ultra-media",
+    "storage_bucket": "ultra-media.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:412430182392:android:66146327a23682f9b5580d",
+        "android_client_info": {
+          "package_name": "com.example.social_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "412430182392-vpknh16kd6lhsi1iqotes278ide1g183.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.social_app",
+            "certificate_hash": "14771503140795de2ed7e170b351bd87294e3c69"
+          }
+        },
+        {
+          "client_id": "412430182392-0d1dm06jtdf29mihm9bv20ra7hs8mqu7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu1cF1t9ZwXE3NEgpU2X-yDWKI9J9USYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "412430182392-0d1dm06jtdf29mihm9bv20ra7hs8mqu7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
