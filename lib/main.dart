@@ -2,19 +2,20 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:social_app/modules/login/login_screen.dart';
+import 'package:social_app/modules/test.dart';
 import 'package:social_app/shared/components/constants.dart';
 
-
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await Firebase.initializeApp();
-  BlocOverrides.runZoned(()  {
-
-          runApp(const MyApp());
+  await Firebase.initializeApp();
+  BlocOverrides.runZoned(
+    () {
+      runApp(const MyApp());
     },
     blocObserver: MyBlocObserver(),
   );
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -24,11 +25,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home:  LoginScreen(),
+      theme: ThemeData.dark(),
+      home: Test(),
     );
   }
 }
-

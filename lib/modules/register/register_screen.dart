@@ -7,27 +7,38 @@ import 'package:social_app/modules/register/cubit/states.dart';
 import 'package:social_app/shared/components/components.dart';
 
 class RegisterScreen extends StatelessWidget {
-   RegisterScreen({Key? key}) : super(key: key);
-final _nameController = TextEditingController();
-final _emailController = TextEditingController();
-final _passwordController = TextEditingController();
-var formKey = GlobalKey<FormState>();
+  RegisterScreen({Key? key}) : super(key: key);
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context)=>RegisterCubit(),
-      child: BlocConsumer<RegisterCubit,RegisterStates>(
-        listener: (context,state){
-          if(state is RegisterSuccessStates){
-            Fluttertoast.showToast(msg: 'Register successfully' , backgroundColor: Colors.green , gravity:ToastGravity.BOTTOM);
+      create: (context) => RegisterCubit(),
+      child: BlocConsumer<RegisterCubit, RegisterStates>(
+        listener: (context, state) {
+          if (state is RegisterSuccessStates) {
+            Fluttertoast.showToast(
+                    msg: 'Register successfully',
+                    backgroundColor: Colors.green,
+                    gravity: ToastGravity.BOTTOM)
+                .then((value) {
+              popTo(context: context);
+            });
           }
-          if(state is RegisterErrorStates){
-            Fluttertoast.showToast(msg: state.error.toString().split(']').last,backgroundColor: Colors.red);
+          if (state is RegisterErrorStates) {
+            Fluttertoast.showToast(
+                msg: state.error.toString().split(']').last,
+                backgroundColor: Colors.red);
           }
         },
-        builder: (context,state){
+        builder: (context, state) {
           return Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
             body: Center(
               child: SingleChildScrollView(
                 child: Form(
@@ -70,20 +81,25 @@ var formKey = GlobalKey<FormState>();
                             prefix: Icon(Icons.lock),
                             label: Text('Password')),
                       ),
-
                       Padding(
-                        padding:  EdgeInsets.all(24.0),
+                        padding: EdgeInsets.all(24.0),
                         child: myButton(
                             onPressed: () {
-                            RegisterCubit.get(context).userRegister(email: _emailController.text, password: _passwordController.text);
+                              RegisterCubit.get(context).userRegister(
+                                  email: _emailController.text,
+                                  password: _passwordController.text);
                             },
                             width: double.infinity,
                             color: Colors.green,
                             height: 50,
-                            widget:state is RegisterLoadingStates? CircularProgressIndicator(color: Colors.white,) :Text(
-                              'Register',
-                              style: TextStyle(color: Colors.white),
-                            )),
+                            widget: state is RegisterLoadingStates
+                                ? CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : Text(
+                                    'Register',
+                                    style: TextStyle(color: Colors.white),
+                                  )),
                       ),
                     ],
                   ),
@@ -92,7 +108,6 @@ var formKey = GlobalKey<FormState>();
             ),
           );
         },
-
       ),
     );
   }
