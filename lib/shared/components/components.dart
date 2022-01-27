@@ -34,11 +34,11 @@ Widget myButton(
       minWidth: width,
       height: height,
     );
-void jumpTo({required Widget widget, context}) {
+void goTo({required Widget widget, context}) {
   Navigator.of(context).push(MaterialPageRoute(builder: (_) => widget));
 }
 
-void jumpAndFinishTo({required Widget widget, context}) {
+void goAndFinishTo({required Widget widget, context}) {
   Navigator.of(context)
       .pushReplacement(MaterialPageRoute(builder: (_) => widget));
 }

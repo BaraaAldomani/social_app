@@ -83,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(24.0),
                       child: myButton(
                           onPressed: () {
-                            jumpTo(widget: RegisterScreen(), context: context);
+                            goTo(widget: RegisterScreen(), context: context);
                           },
                           width: double.infinity,
                           color: Colors.white,
