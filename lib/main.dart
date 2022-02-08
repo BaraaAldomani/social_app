@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:social_app/modules/login/login_screen.dart';
 import 'package:social_app/modules/splash_screen.dart';
 import 'package:social_app/modules/test.dart';
@@ -14,7 +16,7 @@ void main() async {
   BlocOverrides.runZoned(
     () async {
       await CacheHelper.init();
-      String? uId = CacheHelper.getData(key: 'uId') ?? '';
+      uId = CacheHelper.getData(key: 'uId') ?? '';
       runApp(MyApp(
         uId: uId!,
       ));
@@ -33,10 +35,17 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(),
+      theme: themeData,
       home: SplashScreen(
         uId: uId,
       ),
     );
   }
 }
+
+ThemeData themeData = ThemeData(
+  appBarTheme: AppBarTheme(
+      color: secondColor,
+      systemOverlayStyle: SystemUiOverlayStyle(statusBarColor: secondColor),
+      titleTextStyle: GoogleFonts.blackOpsOne(color: firstColor)),
+);

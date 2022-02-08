@@ -5,6 +5,7 @@ import 'package:social_app/layout/social_layout.dart';
 import 'package:social_app/modules/login/login_screen.dart';
 import 'package:social_app/modules/register/cubit/cubit.dart';
 import 'package:social_app/modules/register/cubit/states.dart';
+import 'package:social_app/network/local/cache_helper.dart';
 import 'package:social_app/shared/components/components.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -23,11 +24,11 @@ class RegisterScreen extends StatelessWidget {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) {
           if (state is CreateUserSuccessStates) {
-            Fluttertoast.showToast(
-                    msg: 'Register successfully',
-                    backgroundColor: Colors.green,
-                    gravity: ToastGravity.BOTTOM)
-                .then((value) {
+            CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
+              Fluttertoast.showToast(
+                  msg: 'Register successfully',
+                  backgroundColor: Colors.green,
+                  gravity: ToastGravity.BOTTOM);
               Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(builder: (context) => SocialLayout()),
                   (route) => false);

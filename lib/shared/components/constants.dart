@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override
@@ -25,3 +26,8 @@ class MyBlocObserver extends BlocObserver {
     print('onClose -- ${bloc.runtimeType}');
   }
 }
+
+String? uId;
+
+Color firstColor = Color(0xff8ac2d0);
+Color secondColor = Color(0xff0b2a49);

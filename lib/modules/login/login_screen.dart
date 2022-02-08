@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:social_app/layout/social_layout.dart';
 import 'package:social_app/modules/login/cubit/cubit.dart';
 import 'package:social_app/modules/login/cubit/states.dart';
 import 'package:social_app/modules/register/register_screen.dart';
@@ -20,12 +21,14 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginStates>(
         listener: (context, state) {
           if (state is LoginSuccessStates) {
-            Fluttertoast.showToast(
-                    msg: 'Login successfully',
-                    backgroundColor: Colors.green,
-                    gravity: ToastGravity.BOTTOM)
-                .then((value) {
-              CacheHelper.saveData(key: 'uId', value: state.uId);
+            CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
+              Fluttertoast.showToast(
+                  msg: 'Login successfully',
+                  backgroundColor: Colors.green,
+                  gravity: ToastGravity.BOTTOM);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => SocialLayout()),
+                  (route) => false);
             });
           }
           if (state is LoginErrorStates) {
