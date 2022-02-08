@@ -9,6 +9,8 @@ import 'package:social_app/modules/test.dart';
 import 'package:social_app/network/local/cache_helper.dart';
 import 'package:social_app/shared/components/constants.dart';
 
+import 'layout/social_layout.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -33,13 +35,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: themeData,
-      home: SplashScreen(
-        uId: uId,
-      ),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: themeData,
+        home: SplashScreen(
+          uId: uId,
+        ));
   }
 }
 

@@ -12,6 +12,7 @@ import 'package:social_app/shared/components/constants.dart';
 
 import '../../models/user_model.dart';
 import '../../modules/chats/chats.dart';
+import '../../modules/home/home.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialStates());
@@ -48,7 +49,7 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   List screens = [
-    SocialLayout(),
+    HomeScreen(),
     ChatsScreen(),
     SettingsScreen(),
     ProjectsScreen()
