@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:social_app/modules/login/cubit/cubit.dart';
 import 'package:social_app/modules/login/cubit/states.dart';
 import 'package:social_app/modules/register/register_screen.dart';
+import 'package:social_app/network/local/cache_helper.dart';
 import 'package:social_app/shared/components/components.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -20,9 +21,12 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSuccessStates) {
             Fluttertoast.showToast(
-                msg: 'Login successfully',
-                backgroundColor: Colors.green,
-                gravity: ToastGravity.BOTTOM);
+                    msg: 'Login successfully',
+                    backgroundColor: Colors.green,
+                    gravity: ToastGravity.BOTTOM)
+                .then((value) {
+              CacheHelper.saveData(key: 'uId', value: state.uId);
+            });
           }
           if (state is LoginErrorStates) {
             Fluttertoast.showToast(
@@ -88,10 +92,12 @@ class LoginScreen extends StatelessWidget {
                           width: double.infinity,
                           color: Colors.white,
                           height: 50,
-                          widget: Text(
-                            'Register',
-                            style: TextStyle(color: Colors.green),
-                          )),
+                          widget: state is LoginSuccessStates
+                              ? Center(child: CircularProgressIndicator())
+                              : Text(
+                                  'Register',
+                                  style: TextStyle(color: Colors.green),
+                                )),
                     ),
                   ],
                 ),

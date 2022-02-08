@@ -12,7 +12,10 @@ class RegisterScreen extends StatelessWidget {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _phoneController = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -25,7 +28,9 @@ class RegisterScreen extends StatelessWidget {
                     backgroundColor: Colors.green,
                     gravity: ToastGravity.BOTTOM)
                 .then((value) {
-              goAndFinishTo(widget: SocialLayout(), context: context);
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => SocialLayout()),
+                  (route) => false);
             });
           }
           if (state is RegisterErrorStates) {
@@ -59,7 +64,7 @@ class RegisterScreen extends StatelessWidget {
                             onSubmit: (value) {
                               print(value);
                             },
-                            prefix: Icon(Icons.lock),
+                            prefix: Icon(Icons.person),
                             label: Text('Name')),
                       ),
                       Padding(
@@ -71,6 +76,16 @@ class RegisterScreen extends StatelessWidget {
                             },
                             prefix: Icon(Icons.email_outlined),
                             label: Text('Email')),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(24.0),
+                        child: myTextField(
+                            controller: _phoneController,
+                            onSubmit: (value) {
+                              print(value);
+                            },
+                            prefix: Icon(Icons.phone),
+                            label: Text('Phone')),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(24.0),
@@ -87,6 +102,8 @@ class RegisterScreen extends StatelessWidget {
                         child: myButton(
                             onPressed: () {
                               RegisterCubit.get(context).userRegister(
+                                  name: _nameController.text,
+                                  phone: _phoneController.text,
                                   email: _emailController.text,
                                   password: _passwordController.text);
                             },

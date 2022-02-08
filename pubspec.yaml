@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   fluttertoast: ^8.0.8
+  shared_preferences: ^2.0.12
 
   bloc: ^8.0.2
   flutter_bloc: ^8.0.1
