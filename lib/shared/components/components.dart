@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:social_app/shared/components/constants.dart';
 import 'dart:math' as math;
 
@@ -59,7 +60,7 @@ Widget cardInfo(
         required String photoPath,
         required String subtitle}) =>
     Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Card(
         color: firstColor,
         child: Stack(
@@ -68,7 +69,7 @@ Widget cardInfo(
               alignment: Alignment.bottomRight,
               children: [
                 SizedBox(
-                  width: size.width / 1.5,
+                  width: size.width / 1.0,
                   child: ImageFiltered(
                     imageFilter: ImageFilter.blur(
                         sigmaX: 10, sigmaY: 10, tileMode: TileMode.decal),
@@ -76,7 +77,7 @@ Widget cardInfo(
                         fit: BoxFit.fill),
                   ),
                 ),
-                Container(
+                SizedBox(
                   child: Column(
                     children: [
                       Padding(
@@ -87,7 +88,7 @@ Widget cardInfo(
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 150, right: 25),
+                        padding: const EdgeInsets.only(left: 160, right: 25),
                         child: Wrap(
                           children: [
                             Text(
@@ -101,7 +102,6 @@ Widget cardInfo(
                     ],
                   ),
                   width: size.width,
-                  height: size.height - 50,
                 ),
               ],
             ),
@@ -109,16 +109,14 @@ Widget cardInfo(
               clipper: MyDivider(size),
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: Container(
+                child: SizedBox(
                   child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Container(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: Image.asset(
-                          photoPath,
-                          fit: BoxFit.contain,
-                        ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Image.asset(
+                        photoPath,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
@@ -154,3 +152,183 @@ class MyDivider extends CustomClipper<Path> {
     return true;
   }
 }
+
+Widget postInfo(
+        {required Size size,
+        required TextEditingController controller,
+        String? image,
+        String? content}) =>
+    Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: firstColor.withOpacity(0.6),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(25),
+                    topLeft: Radius.circular(25))),
+            height: size.height / 11,
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    radius: size.width / 15,
+                    backgroundImage: NetworkImage(
+                        'https://lh3.googleusercontent.com/ogw/ADea4I5jQyTiwZ6bkD264_IPZ4zv5A_0fFK7EL8VG4cXpg=s32-c-mo'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Baraa Adomani',
+                        style: GoogleFonts.blackOpsOne(
+                          color: secondColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        DateFormat.yMd().format(DateTime.now()),
+                        style: GoogleFonts.blackOpsOne(
+                          color: secondColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    color: secondColor,
+                    iconSize: size.width / 13,
+                    onPressed: () {},
+                    icon: Icon(Icons.more_vert),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            color: firstColor.withOpacity(0.6),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  content != null
+                      ? Wrap(
+                          children: [
+                            Text(
+                              content,
+                              maxLines: 10,
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.blackOpsOne(
+                                  color: secondColor, fontSize: 16),
+                            )
+                          ],
+                        )
+                      : Container(),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  image != null
+                      ? Container(
+                          height: size.height / 4,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(image),
+                                  fit: BoxFit.cover)),
+                        )
+                      : Container(),
+                  Container(
+                      height: size.height / 30,
+                      child: Row(
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.favorite,
+                                size: size.width / 20,
+                              ),
+                              Text('2020',
+                                  style: TextStyle(fontSize: size.width / 30))
+                            ],
+                          )
+                        ],
+                      ))
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: firstColor.withOpacity(0.6),
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(25),
+                    bottomLeft: Radius.circular(25))),
+            height: size.height / 11,
+            child: Row(
+              children: [
+                Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: size.width / 20,
+                          backgroundImage: NetworkImage(
+                              'https://lh3.googleusercontent.com/ogw/ADea4I5jQyTiwZ6bkD264_IPZ4zv5A_0fFK7EL8VG4cXpg=s32-c-mo'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: size.width / 3,
+                            child: TextField(
+                              controller: controller,
+                              showCursor: false,
+                              decoration: InputDecoration(
+                                  hintText: 'Write comment...',
+                                  hintStyle:
+                                      TextStyle(fontSize: size.width / 30),
+                                  focusedBorder: InputBorder.none),
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.comment),
+                  ),
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    color: secondColor,
+                    iconSize: size.width / 13,
+                    onPressed: () {},
+                    icon: Icon(Icons.favorite),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );

@@ -9,6 +9,8 @@ import 'package:social_app/modules/register/register_screen.dart';
 import 'package:social_app/network/local/cache_helper.dart';
 import 'package:social_app/shared/components/components.dart';
 
+import '../../shared/components/constants.dart';
+
 class LoginScreen extends StatelessWidget {
   LoginScreen({Key? key}) : super(key: key);
   final _emailController = TextEditingController();
@@ -22,13 +24,16 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSuccessStates) {
             CacheHelper.saveData(key: 'uId', value: state.uId).then((value) {
+              uId = state.uId;
               Fluttertoast.showToast(
                   msg: 'Login successfully',
                   backgroundColor: Colors.green,
-                  gravity: ToastGravity.BOTTOM);
-              Navigator.of(context).pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (context) => SocialLayout()),
-                  (route) => false);
+                  gravity: ToastGravity.BOTTOM).then((value) {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => SocialLayout()),
+                        (route) => false);
+              });
+
             });
           }
           if (state is LoginErrorStates) {
